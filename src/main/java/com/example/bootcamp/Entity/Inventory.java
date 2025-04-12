@@ -24,7 +24,7 @@ public class Inventory {
     private int year;
 
     private double costPrice;
-    private double sellPrice;
+    private double sellingPrice;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

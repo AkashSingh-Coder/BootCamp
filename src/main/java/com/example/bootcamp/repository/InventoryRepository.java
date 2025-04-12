@@ -5,5 +5,5 @@ import com.example.bootcamp.Entity.Inventory;
 import java.util.Optional;
 
 public interface InventoryRepository extends JpaRepository<Inventory, Long> {
-    
+    Optional<Inventory> findBySku(String sku);
 }
