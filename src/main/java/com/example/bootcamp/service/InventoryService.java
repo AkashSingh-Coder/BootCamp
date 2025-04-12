@@ -26,5 +26,16 @@ public class InventoryService {
 
         return inventoryRepository.save(inventory);
     }
+
+    final static String STATUS="Inventory deleted";
+    final static String NOT_FOUND="Inventory not found";
+    public String deleteInventory(String sku) {
+        Optional<Inventory> inventory = inventoryRepository.findBySku(sku);
+        if (inventory.isPresent()) {
+            inventoryRepository.delete(inventory.get());
+            return STATUS;
+        }
+        return NOT_FOUND;
+    }
 }
 
