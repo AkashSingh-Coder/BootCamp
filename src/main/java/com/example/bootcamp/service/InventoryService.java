@@ -13,10 +13,13 @@ import java.util.Optional;
 @Service
 public class InventoryService {
 
-    @Autowired
-    private InventoryRepository inventoryRepository;
+    private final InventoryRepository inventoryRepository;
 
-    
+    public InventoryService(InventoryRepository inventoryRepository) {
+        this.inventoryRepository = inventoryRepository;
+    }
+
+
     public Inventory getInventoryBySku(String sku) {
         Optional<Inventory> inventory = inventoryRepository.findBySku(sku);
         return inventory.orElse(null);
