@@ -10,3 +10,16 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+@Service
+public class InventoryService {
+
+    @Autowired
+    private InventoryRepository inventoryRepository;
+
+    
+    public Inventory getInventoryBySku(String sku) {
+        Optional<Inventory> inventory = inventoryRepository.findBySku(sku);
+        return inventory.orElse(null); // Returns null if not found
+    }
+}
+
