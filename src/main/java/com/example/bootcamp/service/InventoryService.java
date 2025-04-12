@@ -19,7 +19,12 @@ public class InventoryService {
     
     public Inventory getInventoryBySku(String sku) {
         Optional<Inventory> inventory = inventoryRepository.findBySku(sku);
-        return inventory.orElse(null); // Returns null if not found
+        return inventory.orElse(null);
+    }
+
+    public Inventory createInventory(Inventory inventory) {
+
+        return inventoryRepository.save(inventory);
     }
 }
 
