@@ -32,6 +32,12 @@ public class InventoryController {
         return new ResponseEntity<>(inventory, HttpStatus.OK);
     }
 
+    @GetMapping
+    public List<Inventory> getAllInventory(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return inventoryService.getAllInventories(page, size);
+    }
     @DeleteMapping("/{sku}")
     public ResponseEntity<?> deleteInventory(@PathVariable String sku) {
         String response=inventoryService.deleteInventory(sku);
