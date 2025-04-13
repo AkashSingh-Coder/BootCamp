@@ -59,6 +59,17 @@ class InventoryControllerTest {
         verify(inventoryService, times(1)).createInventory(eq(inventory));
     }
 
+    @Test
+    void getInventory() {
+        when(inventoryService.getInventoryBySku("12345")).thenReturn(inventory);
+
+        ResponseEntity<?> response = inventoryController.getInventory("12345");
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(inventory, response.getBody());
+        verify(inventoryService, times(1)).getInventoryBySku("12345");
+    }
+
 
 
 
