@@ -25,11 +25,14 @@ public class InventoryService {
     }
 
     public Inventory createInventory(Inventory inventory) {
-
+        if (inventory.getSellingPrice() <= 0) {
+            throw new IllegalArgumentException("Selling price must be greater than 0");
+        }
         return inventoryRepository.save(inventory);
     }
 
     public List<Inventory> getAllInventories(int page, int size) {
+
         return inventoryRepository.findAll(PageRequest.of(page, size)).getContent();
     }
 
