@@ -1,5 +1,6 @@
 package com.example.bootcamp.Entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Data;
@@ -22,6 +23,7 @@ public class Inventory {
     private String make;
     private String model;
     private String trim;
+    @Column(name = "`year`")
     private int year;
 
     private double costPrice;
