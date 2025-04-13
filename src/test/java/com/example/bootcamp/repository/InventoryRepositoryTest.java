@@ -13,4 +13,10 @@ public class InventoryRepositoryTest {
         inventory.setSku("1");
         assertEquals("1", inventory.getSku());
     }
+    @Test
+    public void findBySKU() {
+        Inventory inventory = new Inventory();
+        inventory.setSku("2");
+        assertEquals("2", inventory.getSku());
+    }
 }
