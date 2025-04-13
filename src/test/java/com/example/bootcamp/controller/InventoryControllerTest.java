@@ -93,6 +93,19 @@ class InventoryControllerTest {
         verify(inventoryService, times(1)).getAllInventories(0, 10);
     }
 
+    @Test
+    void updateInventory() {
+        when(inventoryService.updateInventory(eq("12345"), eq(inventory))).thenReturn(inventory);
+
+        ResponseEntity<?> response = inventoryController.updateInventory("12345", inventory);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(inventory, response.getBody());
+        verify(inventoryService, times(1)).updateInventory(eq("12345"), eq(inventory));
+    }
+
+
+
 
 
 
