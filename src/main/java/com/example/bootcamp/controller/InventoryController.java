@@ -38,6 +38,20 @@ public class InventoryController {
             @RequestParam(defaultValue = "10") int size) {
         return inventoryService.getAllInventories(page, size);
     }
+
+    @PutMapping("/{sku}")
+    public ResponseEntity<?> updateInventory(
+            @PathVariable String sku,
+            @RequestBody Inventory inventory
+    ) {
+        Inventory updatedInventory = inventoryService.updateInventory(sku, inventory);
+        if (updatedInventory != null) {
+            return new ResponseEntity<>(updatedInventory, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Inventory not found", HttpStatus.NOT_FOUND);
+        }
+    }
+
     @DeleteMapping("/{sku}")
     public ResponseEntity<?> deleteInventory(@PathVariable String sku) {
         String response=inventoryService.deleteInventory(sku);
