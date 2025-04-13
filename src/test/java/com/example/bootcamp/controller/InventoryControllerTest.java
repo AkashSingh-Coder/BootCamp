@@ -29,7 +29,7 @@ class InventoryControllerTest {
 
     @BeforeEach
     void setUp() {
-        Inventory inventory = new Inventory();
+        inventory = new Inventory();
         inventory.setSku("12345");
         inventory.setType("Car");
         inventory.setStatus(InventoryStatus.CREATED);
@@ -79,6 +79,18 @@ class InventoryControllerTest {
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
         assertEquals("Inventory not found", response.getBody());
         verify(inventoryService, times(1)).getInventoryBySku("99999");
+    }
+
+    @Test
+    void getAllInventory() {
+        List<Inventory> inventoryList = List.of(inventory);
+        when(inventoryService.getAllInventories(0, 10)).thenReturn(inventoryList);
+
+        List<Inventory> response = inventoryController.getAllInventory(0, 10);
+
+        assertEquals(1, response.size());
+        assertEquals(inventory, response.get(0));
+        verify(inventoryService, times(1)).getAllInventories(0, 10);
     }
 
 
