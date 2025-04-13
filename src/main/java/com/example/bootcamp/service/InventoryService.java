@@ -36,6 +36,29 @@ public class InventoryService {
         return inventoryRepository.findAll(PageRequest.of(page, size)).getContent();
     }
 
+    public Inventory updateInventory(String sku, Inventory inventory) {
+        Optional<Inventory> existingInventory = inventoryRepository.findBySku(sku);
+        if (existingInventory.isPresent()) {
+            if (inventory.getSellingPrice() <= 0) {
+                throw new IllegalArgumentException("Selling price must be greater than 0");
+            }
+            Inventory updatedInventory = existingInventory.get();
+            updatedInventory.setType(inventory.getType());
+            updatedInventory.setStatus(inventory.getStatus());
+            updatedInventory.setPrimaryLocation(inventory.getPrimaryLocation());
+            updatedInventory.setVin(inventory.getVin());
+            updatedInventory.setMake(inventory.getMake());
+            updatedInventory.setModel(inventory.getModel());
+            updatedInventory.setTrim(inventory.getTrim());
+            updatedInventory.setYear(inventory.getYear());
+            updatedInventory.setCostPrice(inventory.getCostPrice());
+            updatedInventory.setSellingPrice(inventory.getSellingPrice());
+            updatedInventory.setUpdatedAt(inventory.getUpdatedAt());
+            updatedInventory.setUpdatedBy(inventory.getUpdatedBy());
+            return inventoryRepository.save(updatedInventory);
+        }
+        return null;
+    }
     final static String STATUS="Inventory deleted";
     final static String NOT_FOUND="Inventory not found";
     public String deleteInventory(String sku) {
