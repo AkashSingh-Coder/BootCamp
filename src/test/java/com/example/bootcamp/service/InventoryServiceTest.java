@@ -42,6 +42,23 @@ class InventoryServiceTest {
 
     @Test
     void createInventory() {
+
+        Inventory inventory = new Inventory();
+        inventory.setSku("12345");
+        inventory.setSellingPrice(1000.0);
+
+
+        when(inventoryRepository.save(inventory)).thenReturn(inventory);
+
+
+        Inventory result = inventoryService.createInventory(inventory);
+
+
+        assertNotNull(result);
+        assertEquals(1000.0, result.getSellingPrice());
+
+
+        verify(inventoryRepository, times(1)).save(inventory);
     }
 
     @Test
