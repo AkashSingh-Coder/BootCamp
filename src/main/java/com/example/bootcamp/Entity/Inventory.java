@@ -1,8 +1,7 @@
 package com.example.bootcamp.Entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import com.example.bootcamp.enums.InventoryStatus;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -16,13 +15,15 @@ public class Inventory {
     private String sku;
 
     private String type;
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private InventoryStatus status;
     private String primaryLocation;
 
     private String vin;
     private String make;
     private String model;
     private String trim;
+
     @Column(name = "`year`")
     private int year;
 
