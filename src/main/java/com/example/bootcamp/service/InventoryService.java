@@ -30,6 +30,10 @@ public class InventoryService {
         return inventoryRepository.save(inventory);
     }
 
+    public List<Inventory> getAllInventories(int page, int size) {
+        return inventoryRepository.findAll(PageRequest.of(page, size)).getContent();
+    }
+
     final static String STATUS="Inventory deleted";
     final static String NOT_FOUND="Inventory not found";
     public String deleteInventory(String sku) {
