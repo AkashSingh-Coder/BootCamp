@@ -58,7 +58,7 @@ public class InventoryController {
         if (response.equals("Inventory deleted")) {
             return new ResponseEntity<>(response, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Error deleting inventory", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Error deleting inventory", HttpStatus.NOT_FOUND);
         }
     }
 

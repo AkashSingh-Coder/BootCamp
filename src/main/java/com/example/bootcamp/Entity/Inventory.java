@@ -13,6 +13,7 @@ public class Inventory {
 
     @Id
     private String sku;
+
     private String type;
     private String status;
     private String primaryLocation;
