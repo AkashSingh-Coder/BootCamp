@@ -11,6 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
+import static com.example.bootcamp.enums.InventoryStatus.CREATED;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -92,7 +93,31 @@ class InventoryServiceTest {
 
     @Test
     void updateInventory() {
+        Inventory existingInventory = new Inventory();
+        existingInventory.setSku("12345");
+        existingInventory.setSellingPrice(1000.0);
 
+        Inventory updatedInventory = new Inventory();
+        updatedInventory.setSellingPrice(1500.0);
+        updatedInventory.setType("New Type");
+        updatedInventory.setStatus(CREATED);
+
+
+        when(inventoryRepository.findBySku("12345")).thenReturn(Optional.of(existingInventory));
+        when(inventoryRepository.save(any(Inventory.class))).thenReturn(updatedInventory);
+
+
+        Inventory result = inventoryService.updateInventory("12345", updatedInventory);
+
+
+        assertNotNull(result);
+        assertEquals(1500.0, result.getSellingPrice());
+        assertEquals("New Type", result.getType());
+        assertEquals(CREATED, result.getStatus());
+
+
+        verify(inventoryRepository, times(1)).findBySku("12345");
+        verify(inventoryRepository, times(1)).save(any(Inventory.class));
     }
 
     @Test
