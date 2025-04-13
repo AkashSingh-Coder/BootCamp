@@ -70,6 +70,17 @@ class InventoryControllerTest {
         verify(inventoryService, times(1)).getInventoryBySku("12345");
     }
 
+    @Test
+    void getInventory_notFound() {
+        when(inventoryService.getInventoryBySku("99999")).thenReturn(null);
+
+        ResponseEntity<?> response = inventoryController.getInventory("99999");
+
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        assertEquals("Inventory not found", response.getBody());
+        verify(inventoryService, times(1)).getInventoryBySku("99999");
+    }
+
 
 
 
