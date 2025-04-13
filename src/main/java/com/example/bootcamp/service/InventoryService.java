@@ -15,10 +15,11 @@ public class InventoryService {
     private final InventoryRepository inventoryRepository;
 
     public InventoryService(InventoryRepository inventoryRepository) {
+
         this.inventoryRepository = inventoryRepository;
     }
 
-
+    final static String ERROR="Selling price must be greater than 0";
     public Inventory getInventoryBySku(String sku) {
         Optional<Inventory> inventory = inventoryRepository.findBySku(sku);
         return inventory.orElse(null);
@@ -26,7 +27,7 @@ public class InventoryService {
 
     public Inventory createInventory(Inventory inventory) {
         if (inventory.getSellingPrice() <= 0) {
-            throw new IllegalArgumentException("Selling price must be greater than 0");
+            throw new IllegalArgumentException(ERROR);
         }
         return inventoryRepository.save(inventory);
     }
@@ -40,7 +41,7 @@ public class InventoryService {
         Optional<Inventory> existingInventory = inventoryRepository.findBySku(sku);
         if (existingInventory.isPresent()) {
             if (inventory.getSellingPrice() <= 0) {
-                throw new IllegalArgumentException("Selling price must be greater than 0");
+                throw new IllegalArgumentException(ERROR);
             }
             Inventory updatedInventory = existingInventory.get();
             updatedInventory.setType(inventory.getType());
