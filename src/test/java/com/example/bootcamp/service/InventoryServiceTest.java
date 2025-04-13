@@ -122,5 +122,18 @@ class InventoryServiceTest {
 
     @Test
     void deleteInventory() {
+        Inventory inventory = new Inventory();
+        inventory.setSku("12345");
+
+
+        when(inventoryRepository.findBySku("12345")).thenReturn(Optional.of(inventory));
+
+        String result = inventoryService.deleteInventory("12345");
+
+
+        assertEquals("Inventory deleted", result);
+
+
+        verify(inventoryRepository, times(1)).delete(inventory);
     }
 }
