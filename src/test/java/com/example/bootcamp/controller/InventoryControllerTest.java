@@ -104,6 +104,16 @@ class InventoryControllerTest {
         verify(inventoryService, times(1)).updateInventory(eq("12345"), eq(inventory));
     }
 
+    @Test
+    void deleteInventory() {
+        when(inventoryService.deleteInventory("12345")).thenReturn("Inventory deleted");
+
+        ResponseEntity<?> response = inventoryController.deleteInventory("12345");
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals("Inventory deleted", response.getBody());
+        verify(inventoryService, times(1)).deleteInventory("12345");
+    }
 
 
 
